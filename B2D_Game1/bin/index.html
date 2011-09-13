@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Boredomdai 2D Game I [Very Beta!]</title>
+	
+	<script src="js/swfobject.js"></script>
+	<script>
+		var flashvars = {
+		};
+		var params = {
+			menu: "false",
+			scale: "noscale",
+			allowFullscreen: "true",
+			allowScriptAccess: "always",
+			bgcolor: "grey",
+			wmode: "direct" // can cause issues with FP settings & webcam
+		};
+		var attributes = {
+			id:"B2DGame1"
+		};
+		swfobject.embedSWF(
+			"B2DGame1.swf", 
+			"altContent", "720", "480", "10.3.0", 
+			"expressInstall.swf", 
+			flashvars, params, attributes);
+	</script>
+	<style>
+		html, body { color:rgb(255, 255, 255); background-color:rgb(0,0,0); height:100%; overflow:hidden; }
+		body { margin:0; font-family: "Arial",sans serif; }
+	</style>
+</head>
+<body>
+	<div id="altContent">
+		<h1>Boredomdai 2D Game I</h1>
+		<p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
+	</div>
+	<p><strong>Boredomdai 2D (Formerly Dominion 2D)</strong> Engine Test for Game I.</p>
+	
+	<h1>Controls</h1>
+	
+	<ul>
+		<li><strong>Key C -</strong> fires currently selected weapon.</li>
+		<li><strong>Key X -</strong> cycles between bullets and rockets [if you have the latter!].</li>
+		<li><strong>Key Z -</strong> Open/Use/Pushwall activation.</li>
+		<li><strong>Arrow Keys</strong> move you around. You fire in the way you were walking or ARE walking.</li>
+	</ul>
+	
+	<p>Current Version Specifications:</p>
+	<ul>
+		<li>24x24 pixel object/gridsquare ratio for higher detail. [Previously implemented at 16x16]</li>
+		<li>Basic button "gui" system from scratch for the title screen + menu.</li>
+		<li>Highly object oriented, with KIActor the basis for all in-game objects for the most part. [GUI is the primary exception]</li>
+		<li>Rise of the Triad type pushwalls, switches and touchplates! EXPLORE</li>
+		<li>Secrets and bonuses for finding them. Kill all enemies for a bonus. Kill no enemies for a bonus.</li>
+		<li>Three levels, lovingly created in Ogmo Editor to try at the moment.</li>
+	</ul>
+	
+	<!--
+	<p>Future Version Plans:</p>
+	<ul>
+		<li>More enemies, Score items [loot and goods!], Hostage rescue missions to advance the plot, Props and asthetics.</li>
+		<li>Cinematics between bosses' areas.</li>
+		<li>Better loading of maps. Right now it works but it's very quirky.</li>
+		<li>Music. Not sure about this!</li>
+		<li>Better sprite animation. [Some flicker/inconsistencies].</li>
+		<li>Doors perhaps? [probably not but it might become possible]</li>
+	</ul> -->
+	
+</body>
+</html>

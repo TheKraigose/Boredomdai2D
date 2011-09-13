@@ -1,0 +1,66 @@
+<project>
+	<name>Boredomdai 2D Game 1</name>
+	<settings>
+		<defaultWidth>720</defaultWidth>
+		<defaultHeight>720</defaultHeight>
+		<minWidth>240</minWidth>
+		<minHeight>240</minHeight>
+		<maxWidth>2400</maxWidth>
+		<maxHeight>1200</maxHeight>
+		<workingDirectory>src/assets/tilesets</workingDirectory>
+	</settings>
+	
+	<tilesets>
+		<tileset name="main" image="tiles.png" tileWidth="24" tileHeight="24" />		
+	</tilesets>
+	
+	<objects>
+		<object name="playerSpawn" image="player_s.png" width="24" height="24" limit="1" />
+		<object name="exitNormal" image="exit.png" width="24" height="24" limit="1" />
+		<folder name="enemies">
+			<object name="enemygrunt" image="enemy_zf.png" width="24" height="24">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<integer name="dflag" min="1" max="3" default="2" />
+				</values>
+			</object>
+			<object name="boss1peta" image="boss_cm.png" width="24" height="24">
+				<values>
+					<boolean name="endslevel" default="true" />
+				</values>
+			</object>
+		</folder>
+		<folder name="items">
+			<object name="rocketammo" image="item_rammo.png" width="24" height="24" />
+			<object name="healthkit" image="item_hkit.png" width="24" height="24" />
+			<object name="moneybag" image="item_score_money.png" width="24" height="24" />
+		</folder>
+		<folder name="triggers">
+			<object name="touchplate" image="trigger_tplate.png" width="24" height="24">
+				<values>
+					<integer name="tag" min="0" max="256" default="0" />
+				</values>
+			</object>
+			<object name="switchobj" image="trigger_switch.png" width="24" height="24">
+				<values>
+					<integer name="tile" min="0" max="3" default="0" />
+					<integer name="tag" min="0" max="256" default="0" />
+				</values>
+			</object>
+			<object name="pwallfx" image="special_fx.png" width="24" height="24">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<integer name="tag" min="0" max="256" default="0" />
+					<integer name="dist" min="1" max="8" default="1" />
+				</values>
+			</object>
+		</folder>
+	</objects>
+	
+	<layers>
+		<grid name="solid" gridSize="24" exportAsObjects="true" />
+		<tiles name="walls" gridSize="24" />
+		<tiles name="pushwalls" gridSize="24" />
+		<objects name="actors" gridSize="24" />
+	</layers>
+</project>
