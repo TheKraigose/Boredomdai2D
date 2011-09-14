@@ -92,6 +92,16 @@ package entities
 			health = ssi.health;
 			lives = ssi.lives;
 			rocketAmmo = ssi.rocketammo;
+			
+			var reached:Boolean = false;
+			
+			while (!reached)
+			{
+				if (oneUpLevel < (currentScore / SCORE_INCREMENT_1UP))
+					oneUpLevel++;
+				else
+					reached = true;
+			}
 		}
 		
 		public function makeSoundFromShots():Boolean

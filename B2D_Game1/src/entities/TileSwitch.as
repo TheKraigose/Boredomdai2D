@@ -68,7 +68,10 @@ package entities
 				if (collideWith(target, x + 24, y) || collideWith(target, x - 24, y) || collideWith(target, x, y - 24) || collideWith(target, x, y + 24))
 				{
 					activated = true;
-					sfxSwitch.play(0.35);
+					
+					if (Options.soundFxEnabled)
+						sfxSwitch.play(0.35 * Options.soundFxVolume);
+						
 					tmap.setTile(1, 1, tilenum += 1);
 					CauseAction();
 				}

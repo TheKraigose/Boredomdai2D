@@ -330,7 +330,7 @@ package worlds
 			
 			currentSection = TitleScreens.SECTION_MAINMENU;
 			add(buttonNewGame);
-			if (SaveManager.sharedobj.data.d2d_save != undefined)
+			if (SaveManager.sharedobj.data.b2dsaves != undefined)
 			{
 				add(buttonLoadGame);
 			}

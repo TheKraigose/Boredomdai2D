@@ -13,7 +13,6 @@ package entities
 			super(sx, sy, 24, 24);
 			type = "healthkit";
 			graphic = new Image(Assets.SPR_HPKIT);
-			Image(graphic).scale = Assets.SCALE_SPR_XY;
 		}
 		
 		public override function removed():void

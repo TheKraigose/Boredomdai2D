@@ -100,7 +100,9 @@ package entities
 				}
 				if (Assets.pushwallSoundCount < Assets.PWALL_SND_LIMIT && traveltime <= (TRAVEL_TIME_MAX / 2))
 				{
-					sfxPWall.play(0.35);
+					if (Options.soundFxEnabled)
+						sfxPWall.loop(0.35 * Options.soundFxVolume);
+						
 					Assets.pushwallSoundCount++;
 				}
 				

@@ -17,9 +17,9 @@ package
 		public static const SWITCHSET:Class;
 		[Embed(source = 'assets/sprites/sanya.png')]
 		public static const SANYA_SPR:Class;
-		[Embed(source = 'assets/sprites/grunt.png')]
+		[Embed(source = 'assets/sprites/lowguard.png')]
 		public static const SPR_LOWGUARD:Class;
-		[Embed(source = 'assets/sprites/dango_96px.png')]
+		[Embed(source = 'assets/sprites/healthkit.png')]
 		public static const SPR_HPKIT:Class;
 		[Embed(source = 'assets/sprites/ammo_rocket.png')]
 		public static const SPR_ROCKBOX:Class;

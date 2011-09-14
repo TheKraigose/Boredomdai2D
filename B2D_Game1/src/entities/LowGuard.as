@@ -21,18 +21,18 @@ package entities
 			attackTimeMax = 300;
 			health = 20;
 			ssheet.add("stand_down", [0], 0, false);
-			ssheet.add("stand_up", [7], 0, false);
-			ssheet.add("stand_left", [21], 0, false);
-			ssheet.add("stand_right", [14], 0, false);
+			ssheet.add("stand_up", [3], 0, false);
+			ssheet.add("stand_left", [9], 0, false);
+			ssheet.add("stand_right", [6], 0, false);
 			ssheet.add("move_down", [0, 1, 0, 2], 15, true);
-			ssheet.add("move_up", [7, 8, 7, 9], 15, true);
-			ssheet.add("move_right", [14, 15, 14, 16], 15, true);
-			ssheet.add("move_left", [21, 22, 21, 23], 15, true);
-			ssheet.add("shoot_down", [3, 4, 3], 15, false);
-			ssheet.add("shoot_up", [10, 11, 10], 15, false);
-			ssheet.add("shoot_right", [5, 6, 5], 15, false);
-			ssheet.add("shoot_left", [12, 13, 12], 15, false);
-			ssheet.add("dead", [17, 18, 19, 20], 15, false);
+			ssheet.add("move_up", [3, 4, 3, 5], 15, true);
+			ssheet.add("move_right", [6, 7, 6, 8], 15, true);
+			ssheet.add("move_left", [9, 10, 9, 11], 15, true);
+			ssheet.add("shoot_down", [12, 13, 12], 15, false);
+			ssheet.add("shoot_up", [18, 19, 18], 15, false);
+			ssheet.add("shoot_right", [15, 16, 15], 15, false);
+			ssheet.add("shoot_left", [21, 22, 21], 15, false);
+			ssheet.add("dead", [24, 25, 26, 27], 15, false);
 			
 			graphic = ssheet;
 			

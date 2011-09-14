@@ -1,13 +1,16 @@
 package  
 {
+	import entities.MusicPlayer;
 	import flash.net.SharedObject;
 	import flash.utils.ByteArray;
 	import mx.core.ByteArrayAsset;
 	import net.flashpunk.FP;
+	import net.flashpunk.World;
 	import worlds.Game;
 	import entities.Player;
 	import util.Base64;
 	import worlds.ErrorScreen;
+	import worlds.TitleScreens;
 	
 	/**
 	 * ...
@@ -82,7 +85,7 @@ package
 		{
 			if (sharedobj.data.b2dsaves != undefined)
 			{
-				var xml:XML = sharedobj.data.d2d_save;
+				var xml:XML = sharedobj.data.b2dsaves;
 				
 				var diffBAR:ByteArray;
 				var levelBAR:ByteArray;
@@ -91,7 +94,7 @@ package
 				var scoreBAR:ByteArray;
 				var hpBAR:ByteArray;
 				
-				for each (var plyr:XML in xml.player[0])
+				for each (var plyr:XML in xml.player)
 				{
 					diffBAR = Base64.decode(plyr.@diff);
 					levelBAR = Base64.decode(plyr.@levelnum);;
@@ -113,6 +116,11 @@ package
 				if (sstate.levelnumber > 3)
 					sstate.levelnumber = 3;
 				
+				var mblst:Array = [];
+				FP.world.getClass(MusicPlayer, mblst);
+				
+				mblst[0].MP_StopPlaying();
+					
 				var gw:Game = new Game(sstate.difficulty, sstate.levelnumber, sstate);
 				
 				FP.world = gw;
