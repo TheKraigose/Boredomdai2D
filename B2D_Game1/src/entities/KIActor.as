@@ -48,6 +48,7 @@ package entities
 		protected var damage:int = 0;					// Damage dealt. All actors have a damage variable.
 		protected var flagForRemoval:Boolean = false;	// If true, will be removed.
 		protected var state:int;						// State variable. additional states can be made based on the actor as long as they're greater than 6.
+		protected var angle:int;
 		protected var gibHealth:int = -5;
 		protected var ssheet:Spritemap;
 		protected var speed:int;
@@ -65,7 +66,7 @@ package entities
 			y = _sy;
 			type = "none";
 			setHitbox(_w, _h);
-			setOrigin(-(halfWidth), 0);
+			// setOrigin( -(halfWidth), -(halfHeight));
 			state = KIActor.STATE_PROPNONE;
 			direction = KIActor.DIR_NONE;
 			sfxGibbing = new Sfx(Assets.SFX_GIBBING);

@@ -35,37 +35,11 @@ package entities
 		// Constructor
 		public function Rocket(_sx:int, _sy:int, _d:int, _p:Player) 
 		{
-			super(_sx, _sy, 16, 10, _d, 0, 5, _p);	// Call super constructor
+			super(_sx, _sy, 16, 10, angle, 5, _p);	// Call super constructor
 			
-			// Apparently the rotation
-			// is done counter-clockwise.
-			// More like counter-intuitive...
-			// I had to redo this slightly from
-			// the bullet method.
-			if (direction == 0)
-				angle = 0;
-			else if (direction == 1)
-				angle = 45;
-			else if (direction == 2)
-				angle = 90;
-			else if (direction == 3)
-				angle = 135;
-			else if (direction == 4)
-				angle = 180;
-			else if (direction == 5)
-				angle = 225;
-			else if (direction == 6)
-				angle = 270;
-			else if (direction == 7)
-				angle = 315;
-			else
-				angle = 0;
-				
 			Image(sprFRocket).angle = angle;
 			
 			graphic = sprFRocket;
-			
-			changeWidthNHeight();
 			
 			damage = 25;			// Does a ton more damage...
 			sfxShoot.play(0.35);	// Play sound effect.

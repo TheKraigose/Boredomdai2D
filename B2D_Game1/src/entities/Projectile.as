@@ -18,36 +18,21 @@ package entities
 	// depending on who fired.
 	public class Projectile extends KIActor 
 	{
-		protected var angle:int;		// Angle is determined by the direction (45 degree increments)
 		
 		// Constructor
-		public function Projectile(_sx:int, _sy:int, _w:int, _h:int, _d:int, _a:int, _s:int, _e:Entity) 
+		public function Projectile(_sx:int, _sy:int, _w:int, _h:int, _a:int, _s:int, _e:Entity) 
 		{
 			super(_sx, _sy, _w, _h);
-			
-			setOrigin(0, 0);
 			
 			layer = 4;		// Set layer to be below Player and enemies?
 			target = _e;
 			speed = _s;
-			direction = _d;
 			angle = _a;
+			
 			if (target is Player)
 				type = "playermissile";
 			else
 				type = "enemymissile";
-		}
-		
-		protected function changeWidthNHeight():void
-		{
-			if (angle == 90 || angle == 270)
-			{
-				setHitbox(height, width);
-			}
-			else if (angle == 45 || angle == 135 || angle == 225 || angle == 315)
-			{
-				setHitbox(width, width);
-			}
 		}
 		
 		// getDamage is called by the colliding actor
@@ -84,7 +69,21 @@ package entities
 		{
 			if (speed > 0)
 			{
-				if (direction == 0)
+					
+				var radrot:Number = (Math.PI / 180) * angle;
+				
+				// trace("A: " + angle + " R: " + radrot);
+				
+				var newX:int = Math.round(x + Math.cos(radrot) * speed);
+				var newY:int = Math.round(y - Math.sin(radrot) * speed);
+				
+				if (!colliding(new Point(newX, newY)))
+				{
+					x = newX;
+					y = newY;
+				}
+				
+				/* if (direction == 0)
 				{
 					if (!colliding(new Point(x + speed, y)))
 						x += speed;
@@ -140,7 +139,7 @@ package entities
 				{
 					if (!colliding(new Point(x + speed, y)))
 						x += speed;
-				}
+				} */
 			}
 		}
 		

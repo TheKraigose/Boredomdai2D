@@ -108,7 +108,9 @@ package worlds
 			{
 				for each (var playerSpawn:XML in xml.actors[0].playerSpawn)
 				{
-					player.setLocation(playerSpawn.@x, playerSpawn.@y);
+					var px:int = playerSpawn.@x;
+					var py:int = playerSpawn.@y
+					player.setLocation(px + 12, py + 12);
 					if (Version.debugMode)
 					{
 						add(new PlayerDebugText());

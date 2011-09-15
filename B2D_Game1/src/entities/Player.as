@@ -36,13 +36,20 @@ package entities
 		private var oneUpLevel:int = 1;
 		public const SCORE_INCREMENT_1UP:int = 16000;
 		public const SPEED_PLAYER:int = 2;
+		public var speedModified:Boolean = false;
 		
 		// Constructor.
 		public function Player(_sx:int, _sy:int, _d:int) 
 		{
 			super(_sx, _sy, 14, 20);
 			ssheet = new Spritemap(Assets.SANYA_SPR, 24, 24);
-			ssheet.add("stand_down", [0], 0, false);
+			
+			ssheet.add("walk", [0], 0, false);
+			ssheet.add("fire", [0, 1, 0], 15, false);
+			ssheet.add("pain", [2], 0, false);
+			ssheet.add("dead", [2, 3, 4, 5], 15, false);
+			
+			/*ssheet.add("stand_down", [0], 0, false);
 			ssheet.add("stand_up", [8], 0, false);
 			ssheet.add("stand_left", [12], 0, false);
 			ssheet.add("stand_right", [4], 0, false);
@@ -50,12 +57,21 @@ package entities
 			ssheet.add("walk_right", [4, 5, 6, 7], 20, true);
 			ssheet.add("walk_up", [8, 9, 10, 11], 20, true);
 			ssheet.add("walk_left", [12, 13, 14, 15], 20, true);
-			ssheet.add("dead", [16, 17, 18, 19], 20, false);
+			ssheet.add("dead", [16, 17, 18, 19], 20, false); */
+			
 			graphic = ssheet;
 			type = "player";
 			direction = _d;
+			
+			if (direction == 0)
+			{
+				angle = 0;
+			}
+			
 			health = 100;
 			layer = 1;
+			
+			speed = SPEED_PLAYER;
 			
 			sfxPain = new Sfx(Assets.SFX_SANYA_PAIN);
 			sfxDead = new Sfx(Assets.SFX_SANYA_DEAD);
@@ -264,6 +280,13 @@ package entities
 				return false;
 		}
 		
+		public override function render():void
+		{
+			super.render();
+			Image(graphic).angle = angle;
+			Image(graphic).centerOO();
+		}
+		
 		// Update method for player.
 		// A complex beast.
 		public override function update():void
@@ -272,9 +295,62 @@ package entities
 			// input if player is dead.
 			if (health > 0 && !intermission && !gameOver)
 			{
+				
 				tileX = Math.ceil(x / 24);
 				tileY = Math.ceil(y / 24);
-				if (Input.check(Key.DOWN))
+				
+				var movement:int = 0;
+				var rotdir:int = 0;
+				
+				if (Input.pressed(Key.CAPS_LOCK))
+				{
+					speedModified = !speedModified;
+				}
+				
+				if (Input.check(Key.LEFT))
+				{
+					rotdir = 1;
+				}
+				else if (Input.check(Key.RIGHT))
+				{
+					rotdir = -1;
+				}
+				
+				if (Input.check(Key.UP))
+				{
+					movement = 1;
+				}
+				else if (Input.check(Key.DOWN))
+				{
+					movement = -1;
+				}
+				
+				if (speedModified)
+					movement *= 2;
+				
+				var movestep:int = SPEED_PLAYER * movement;
+				angle += (rotdir * SPEED_PLAYER);
+				
+				if (angle >= 360)
+					angle -= 360;
+				else if (angle < 0)
+					angle += 360;
+					
+				var radrot:Number = (Math.PI / 180) * angle;
+				
+				// trace("A: " + angle + " R: " + radrot);
+				
+				var newX:int = Math.round(x + Math.cos(radrot) * movestep);
+				var newY:int = Math.round(y - Math.sin(radrot) * movestep);
+				
+				if (!colliding(new Point(newX - SPEED_PLAYER, newY - SPEED_PLAYER)))
+				{
+					x = newX;
+					y = newY;
+				}
+				
+				
+				/* if (Input.check(Key.DOWN))
 				{
 					if (Input.check(Key.LEFT))
 					{
@@ -347,26 +423,10 @@ package entities
 					ssheet.play("walk_right");
 					if (!colliding(new Point(x + SPEED_PLAYER, y)))
 						x += SPEED_PLAYER;
-				}
+				} */
 				
-				if (Input.released(Key.LEFT))
-				{
-					ssheet.play("stand_left");
-				}
-				else if (Input.released(Key.RIGHT))
-				{
-					ssheet.play("stand_right");
-				}
-				else if (Input.released(Key.UP))
-				{
-					ssheet.play("stand_up");
-				}
-				else if (Input.released(Key.DOWN))
-				{
-					ssheet.play("stand_down");
-				}
 				
-				if (Input.pressed(Key.X))
+				if (Input.pressed(Key.V))
 				{
 					if (rocketAmmo > 0)
 					{
@@ -381,15 +441,16 @@ package entities
 				
 				if (Input.pressed(Key.C))
 				{
+					
 					if (!useRockets)
 					{
-						world.add(new Bullet(centerX, centerY, direction, this));
+						world.add(new Bullet(x - originX, y - originY, angle, this));
 					}
 					else
 					{
 						if (rocketAmmo > 0)
 						{
-							world.add(new Rocket(centerX, centerY, direction, this));
+							world.add(new Rocket(x - originX, y - originY, angle, this));
 							rocketAmmo -= 1;
 							if (rocketAmmo <= 0)
 								useRockets = false;
@@ -417,7 +478,6 @@ package entities
 			}
 			else if (health <= 0)
 			{
-				ssheet.play("dead");
 				// Press any action key to restart at the moment.
 				// We should place text or something in the HUD indicating so.
 				if (Input.pressed(Key.C) || Input.pressed(Key.X) || Input.pressed(Key.Z) && lives >= 0 && !gameOver)
@@ -425,7 +485,6 @@ package entities
 					lives -= 1;
 					health = 100;
 					isHurt = false;
-					ssheet.play("stand_right", true);
 					direction = 0;
 					rocketAmmo = 0;
 					currentScore;
@@ -434,7 +493,6 @@ package entities
 				{
 					lives = 0;
 					gameOver = true;
-					ssheet.play("dead");
 					FP.world.add(new GameOver())
 				}
 			}
@@ -443,7 +501,6 @@ package entities
 			{
 				if (intermission && health > 0)
 				{
-					ssheet.play("stand_right", true);
 					if (Input.pressed(Key.C) || Input.pressed(Key.X) || Input.pressed(Key.Z))
 					{
 						toggleIntermission();
