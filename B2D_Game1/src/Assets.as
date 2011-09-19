@@ -7,18 +7,20 @@ package
 	public class Assets 
 	{
 		// Spritesheet & Graphics Assets
-		[Embed(source = 'assets/sprites/cmama.png')]
-		public static const CMAMA_SPR:Class;
 		[Embed(source = 'assets/sprites/bullet.png')]
 		public static const SPR_BULLET:Class;
-		[Embed(source = "assets/tilesets/tiles.png")]
+		[Embed(source = 'assets/tilesets/tiles.png')]
 		public static const TILESET:Class;
-		[Embed(source = "assets/tilesets/switches.png")]
+		[Embed(source = 'assets/tilesets/switches.png')]
 		public static const SWITCHSET:Class;
+		[Embed(source = 'assets/sprites/weapons.png')]
+		public static const SPR_WEAPONS:Class;
 		[Embed(source = 'assets/sprites/sanya.png')]
 		public static const SANYA_SPR:Class;
-		[Embed(source = 'assets/sprites/lowguard.png')]
+		[Embed(source = 'assets/sprites/lowguard3.png')]
 		public static const SPR_LOWGUARD:Class;
+		[Embed(source = 'assets/sprites/highguard.png')]
+		public static const SPR_HIGHGUARD:Class;
 		[Embed(source = 'assets/sprites/healthkit.png')]
 		public static const SPR_HPKIT:Class;
 		[Embed(source = 'assets/sprites/ammo_rocket.png')]
@@ -31,6 +33,8 @@ package
 		public static const SPR_FROCKET:Class;
 		[Embed(source = 'assets/sprites/money.png')]
 		public static const SPR_MONEY:Class;
+		[Embed(source = 'assets/sprites/exitsteps.png')]
+		public static const SPR_EXIT:Class;
 		
 		[Embed(source = 'assets/graphics/title.png')]
 		public static const GFX_TITLEPIC:Class;
@@ -115,8 +119,8 @@ package
 		public static const MUS_INTER:Class = Assets.MUS_TITLE;
 		
 		// XML Assets (Maps & Other)
-		[Embed(source = "assets/levels/level01.oel", mimeType = "application/octet-stream")]
-		public static const LEVEL01_MAP:Class;
+		[Embed(source = "assets/levels/e1a1.oel", mimeType = "application/octet-stream")]
+		public static const E1A1_MAP:Class;
 		[Embed(source = "assets/levels/level02.oel", mimeType = "application/octet-stream")]
 		public static const LEVEL02_MAP:Class;
 		[Embed(source = "assets/levels/level03.oel", mimeType = "application/octet-stream")]

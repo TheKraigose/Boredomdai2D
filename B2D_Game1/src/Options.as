@@ -10,7 +10,7 @@ package
 	 */
 	public class Options 
 	{
-		public static var sharedobj:SharedObject = SharedObject.getLocal("b2dconf");
+		public static var sharedobj:SharedObject = SharedObject.getLocal("bd2cfg");
 		
 		public static var soundFxVolume:Number = 0.50;
 		public static var musicVolume:Number = 0.50;
@@ -36,22 +36,22 @@ package
 			
 			configXML.appendChild(audioXML);
 			
-			sharedobj.data.b2dconf = configXML;
+			sharedobj.data.bd2cfg = configXML;
 			sharedobj.flush();
 		}
 		
 		public static function getSettings():Boolean
 		{
-			if (sharedobj.data.b2dconf != undefined)
+			if (sharedobj.data.bd2cfg != undefined)
 			{
-				var xml:XML = sharedobj.data.b2dconf;
+				var xml:XML = sharedobj.data.bd2cfg;
 				
 				var sndFlagBAR:ByteArray;
 				var sndVolBAR:ByteArray;
 				var musFlagBAR:ByteArray;
 				var musVolBAR:ByteArray;
 				
-				for each (var a:XML in xml.audio[0])
+				for each (var a:XML in xml.audio)
 				{
 					sndFlagBAR = Base64.decode(a.@soundenabled);
 					sndVolBAR = Base64.decode(a.@soundvolume);

@@ -1,13 +1,13 @@
 package  
 {
-	import entities.MusicPlayer;
+	import entities.ui.MusicPlayer;
 	import flash.net.SharedObject;
 	import flash.utils.ByteArray;
 	import mx.core.ByteArrayAsset;
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	import worlds.Game;
-	import entities.Player;
+	import entities.base.Player;
 	import util.Base64;
 	import worlds.ErrorScreen;
 	import worlds.TitleScreens;
@@ -34,6 +34,8 @@ package
 			var playerScore:int;
 			var playerRockets:int;
 			var playerHealth:int;
+			var playerRType:int;
+			var playerSubmac:int;
 			
 			var playerlist:Array = [];
 			
@@ -47,6 +49,8 @@ package
 			playerRockets = playerlist[0].getAmmoForSave();
 			playerLives = playerlist[0].getLivesForSave();
 			playerHealth = playerlist[0].getHealthForSave();
+			playerRType = playerlist[0].getRocketTypeForSave();
+			playerSubmac = playerlist[0].getSubmacstatus();
 			
 			var playerXML:XML = <player />
 			playerXML.@levelnum = Base64.encode(convertToByteArray(levelNum.toString()));
@@ -55,6 +59,8 @@ package
 			playerXML.@lives = Base64.encode(convertToByteArray(playerLives.toString()));
 			playerXML.@diff = Base64.encode(convertToByteArray(difficulty.toString()));
 			playerXML.@health = Base64.encode(convertToByteArray(playerHealth.toString()));
+			playerXML.@rtype = Base64.encode(convertToByteArray(playerRType.toString()));
+			playerXML.@smac = Base64.encode(convertToByteArray(playerSubmac.toString()));
 			levelData.appendChild(playerXML);
 			
 			sharedobj.data.b2dsaves = levelData;
@@ -93,6 +99,8 @@ package
 				var rcktBAR:ByteArray; 
 				var scoreBAR:ByteArray;
 				var hpBAR:ByteArray;
+				var RTBAR:ByteArray;
+				var SMacBAR:ByteArray;
 				
 				for each (var plyr:XML in xml.player)
 				{
@@ -102,6 +110,8 @@ package
 					rcktBAR = Base64.decode(plyr.@rockets);
 					scoreBAR = Base64.decode(plyr.@score);
 					hpBAR = Base64.decode(plyr.@health);
+					RTBAR = Base64.decode(plyr.@rtype);
+					SMacBAR = Base64.decode(plyr.@smac);
 				}
 				
 				var diff:int = convertFromByteArrayToInt(diffBAR);
@@ -110,8 +120,10 @@ package
 				var rckts:int = convertFromByteArrayToInt(rcktBAR);
 				var score:int = convertFromByteArrayToInt(scoreBAR);
 				var health:int = convertFromByteArrayToInt(hpBAR);
+				var rtype:int = convertFromByteArrayToInt(RTBAR);
+				var smac:int = convertFromByteArrayToInt(SMacBAR);
 				
-				var sstate:SaveStateInfo = new SaveStateInfo(diff, lnum, lives, rckts, score, health);
+				var sstate:SaveStateInfo = new SaveStateInfo(diff, lnum, lives, rckts, score, health, rtype, smac);
 				
 				if (sstate.levelnumber > 3)
 					sstate.levelnumber = 3;

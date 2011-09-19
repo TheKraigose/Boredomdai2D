@@ -1,6 +1,6 @@
 package worlds 
 {
-	import entities.MusicPlayer;
+	import entities.ui.MusicPlayer;
 	import gui.BackgroundGraphic;
 	import gui.ButtonBase;
 	import gui.error.ErrorText;

@@ -7,60 +7,191 @@
 		<minHeight>240</minHeight>
 		<maxWidth>2400</maxWidth>
 		<maxHeight>1200</maxHeight>
-		<workingDirectory>src/assets/tilesets</workingDirectory>
+		<workingDirectory>src/assets/tilesets/ogmo</workingDirectory>
 	</settings>
 	
 	<tilesets>
-		<tileset name="main" image="tiles.png" tileWidth="24" tileHeight="24" />		
+		<tileset name="main" image="tileset.png" tileWidth="12" tileHeight="12" />		
 	</tilesets>
 	
 	<objects>
-		<object name="playerSpawn" image="player_s.png" width="24" height="24" limit="1" />
-		<object name="exitNormal" image="exit.png" width="24" height="24" limit="1" />
-		<folder name="enemies">
-			<object name="enemygrunt" image="enemy_zf.png" width="24" height="24">
+		<object name="playerspawn" image="objset.png" width="12" height="12" limit="1" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="120">
+			<values>
+				<integer name="dir" min="0" max="7" default="0" />
+			</values>
+		</object>
+		<folder name="Grunts">
+			<object name="lowguard" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="0">
 				<values>
 					<integer name="dir" min="0" max="7" default="0" />
-					<integer name="dflag" min="1" max="3" default="2" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
 				</values>
 			</object>
-			<object name="boss1peta" image="boss_cm.png" width="24" height="24">
+			<object name="highguard" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="0">
 				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+			<object name="overpatrol" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="0">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+			<object name="bobcutter" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="0">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+			<object name="yomivtrois" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="12">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+			<object name="brimlawyer" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="12">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+			<object name="minidad" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="12">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+			<object name="rioter" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="12">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="dfeasy" default="true" />
+					<boolean name="dfhard" default="true" />
+					<boolean name="dfohmy" default="false" />
+				</values>
+			</object>
+		</folder>
+		
+		<folder name="Bosses">
+			<object name="kimura" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="24">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="endslevel" default="true" />
+				</values>
+			</object>
+			<object name="chooyoo" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="24">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="endslevel" default="true" />
+				</values>
+			</object>
+			<object name="koyomimom" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="24">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="endslevel" default="true" />
+				</values>
+			</object>
+			<object name="frogout" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="24">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="endslevel" default="true" />
+				</values>
+			</object>
+			<object name="osaka" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="36">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
+					<boolean name="endslevel" default="true" />
+				</values>
+			</object>
+			<object name="mondy" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="36">
+				<values>
+					<integer name="dir" min="0" max="7" default="0" />
 					<boolean name="endslevel" default="true" />
 				</values>
 			</object>
 		</folder>
-		<folder name="items">
-			<object name="rocketammo" image="item_rammo.png" width="24" height="24" />
-			<object name="healthkit" image="item_hkit.png" width="24" height="24" />
-			<object name="moneybag" image="item_score_money.png" width="24" height="24" />
+		
+		<folder name="Health">
+			<object name="fslice" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="48">
+				<values>
+					<boolean name="ishot" default="false" />
+				</values>
+			</object>
+			<object name="poutine" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="48">
+				<values>
+					<boolean name="ishot" default="false" />
+				</values>
+			</object>
 		</folder>
-		<folder name="triggers">
-			<object name="touchplate" image="trigger_tplate.png" width="24" height="24">
+		
+		<folder name="Score">
+			<object name="moneybag" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="48" />
+			<object name="goldbar" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="48" />
+			<object name="clovergold" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="60" />
+			<object name="goldipod" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="60" />
+		</folder>
+		
+		<folder name="Weapons">
+			<object name="submachinegun" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="72" />
+			<object name="bazooka" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="72" />
+			<object name="heatzooka" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="72" />
+			<object name="dinnergun" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="72" />
+			<object name="choirboy" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="84" />
+			<object name="isotrope" image="objset.png" width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="84" />
+		</folder>
+		
+		<folder name="Special">
+			<object name="arroweast" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="96" />
+			<object name="arrownorth" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="96" />
+			<object name="arrowwest" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="96" />
+			<object name="arrowsouth" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="96" />
+			<object name="pwallterm" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="108" />
+			<object name="solidterm" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="108" />
+			<object name="pwallobj" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="108">
 				<values>
-					<integer name="tag" min="0" max="256" default="0" />
-				</values>
-			</object>
-			<object name="switchobj" image="trigger_switch.png" width="24" height="24">
-				<values>
-					<integer name="tile" min="0" max="3" default="0" />
-					<integer name="tag" min="0" max="256" default="0" />
-				</values>
-			</object>
-			<object name="pwallfx" image="special_fx.png" width="24" height="24">
-				<values>
+					<integer name="tag" min="0" max="768" default="0" />
 					<integer name="dir" min="0" max="7" default="0" />
-					<integer name="tag" min="0" max="256" default="0" />
-					<integer name="dist" min="1" max="8" default="1" />
+				</values>
+			</object>
+			<object name="touchplate" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="36" imageOffsetY="108">
+				<values>
+					<integer name="tag" min="0" max="768" default="0" />
+				</values>
+			</object>
+			<object name="tileswitch" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="0" imageOffsetY="120">
+				<values>
+					<integer name="tnum" min="0" max="3" default="0" />
+					<integer name="tag" min="0" max="768" default="0" />
+					<integer name="dir" min="0" max="7" default="0" />
+				</values>
+			</object>
+			<object name="exittrigger" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="12" imageOffsetY="120">
+				<values>
+					<boolean name="issecret" default="false" />
 				</values>
 			</object>
 		</folder>
 	</objects>
 	
 	<layers>
-		<grid name="solid" gridSize="24" exportAsObjects="true" />
-		<tiles name="walls" gridSize="24" />
-		<tiles name="pushwalls" gridSize="24" />
-		<objects name="actors" gridSize="24" />
+		<grid name="solid" gridSize="12" exportAsObjects="true" />
+		<tiles name="walls" gridSize="12" />
+		<tiles name="pushwalls" gridSize="12" />
+		<objects name="actors" gridSize="12" />
 	</layers>
 </project>

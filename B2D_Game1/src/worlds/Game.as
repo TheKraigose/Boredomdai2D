@@ -1,6 +1,12 @@
 package worlds 
 {
-	import entities.*;
+	import entities.ui.*;
+	import entities.special.*;
+	import entities.debug.*;
+	import entities.base.*;
+	import entities.enemies.*;
+	import entities.pickups.*;
+	import entities.geom.LevelGround;
 	import flash.utils.ByteArray;
 	import gui.SimpleGraphic;
 	import net.flashpunk.Entity;
@@ -32,7 +38,7 @@ package worlds
 		
 		public var player:Player;
 		public var interbg:IntermissionBackdrop;
-		public var inter:Intermission;
+		public var inter:Intermission
 		public var hud:HeadsUpDisplay;
 		public var lg:LevelGround;
 		public var levelNumber:int = 1;
@@ -65,10 +71,28 @@ package worlds
 			else
 				levelNumber = 1;
 				
-			pauseGfx = new SimpleGraphic(FP.halfWidth / 5, FP.halfHeight / 5 ,Assets.GFX_PAUSED, true);
+			pauseGfx = new SimpleGraphic(FP.halfWidth / 5, FP.halfHeight / 5, Assets.GFX_PAUSED, true);
 			pauseGfx.visible = false;
 			add(pauseGfx);
 			pause = false;
+		}
+		
+		public function difficultyFlagCheck(easy:Boolean, hard:Boolean, ohmy:Boolean):Boolean
+		{
+			if (difficulty == 3)
+			{
+				return ohmy;
+			}
+			else if (difficulty == 2)
+			{
+				return hard;
+			}
+			else if (difficulty == 1)
+			{
+				return easy;
+			}
+			
+			return false;
 		}
 		
 		public function loadXMLMap(num:int):void
@@ -91,6 +115,24 @@ package worlds
 			mapwidth = xml.width;
 			mapheight = xml.height;
 			
+			mapwidth * 2;
+			mapheight * 2;
+			
+			var px:int;
+			var py:int;
+			
+			var df1:Boolean;
+			var df2:Boolean;
+			var df3:Boolean;
+			
+			var sx:int;
+			var sy:int;
+			var sdir:int;
+			
+			var tx:int;
+			var ty:int;
+					
+			
 			// Build the tilemap
 			lg = new LevelGround(xml);
 			add(lg);
@@ -99,17 +141,36 @@ package worlds
 			{
 				for each (var tile:XML in xml.pushwalls[0].tile)
 				{
-					add(new Pushwall(tile.@x, tile.@y, tile.@tx, tile.@ty));
+					sx = tile.@x;
+					sy = tile.@y;
+					
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					
+					tx = tile.@tx;
+					ty = tile.@ty;
+					
+					tx = tx / 12;
+					ty = ty / 12;
+					
+					add(new Pushwall(sx, sy, tx, ty));
 					scrtcount++;
 				}
 			}
 				
 			if (xml.actors[0] != null)
 			{
-				for each (var playerSpawn:XML in xml.actors[0].playerSpawn)
+				for each (var playerspawn:XML in xml.actors[0].playerspawn)
 				{
-					var px:int = playerSpawn.@x;
-					var py:int = playerSpawn.@y
+					px = playerspawn.@x;
+					py = playerspawn.@y;
+					
+					px = ((px / 12));
+					py = ((py / 12));
+					
+					px *= 24;
+					py *= 24;
+					
 					player.setLocation(px + 12, py + 12);
 					if (Version.debugMode)
 					{
@@ -118,70 +179,183 @@ package worlds
 					//adjustToPlayer();
 				}
 			
-				for each (var enemygrunt:XML in xml.actors[0].enemygrunt)
+				for each (var lowguard:XML in xml.actors[0].lowguard)
 				{
-					if (enemygrunt.@dflag <= difficulty)
+					df1 = lowguard.@dfeasy;
+					df2 = lowguard.@dfhard;
+					df3 = lowguard.@dfohmy;
+					
+					if (difficultyFlagCheck(df1, df2, df3))
 					{
-						add(new LowGuard(enemygrunt.@x, enemygrunt.@y, enemygrunt.@dir));
+						sx = lowguard.@x;
+						sy = lowguard.@y;
+						sdir = lowguard.@dir;
+						
+						sx = ((sx / 12) * 24);
+						sy = ((sy / 12) * 24);
+						
+						add(new LowGuard(sx + 12, sy + 12, sdir));
 						mobjcount++;
 					}
 				}
 				
-				/* for each (var zalgawesome:XML in xml.actors[0].zalgawesome)
+				for each (var highguard:XML in xml.actors[0].highguard)
 				{
-					if (zalgawesome.@dflag <= difficulty)
+					df1 = highguard.@dfeasy;
+					df2 = highguard.@dfhard;
+					df3 = highguard.@dfohmy;
+					
+					if (difficultyFlagCheck(df1, df2, df3))
 					{
-						add(new Zalgawesome(zalgawesome.@x, zalgawesome.@y));
+						sx = highguard.@x;
+						sy = highguard.@y;
+						sdir = highguard.@dir;
+						
+						sx = ((sx / 12) * 24);
+						sy = ((sy / 12) * 24);
+						
+						add(new HighGuard(sx + 12, sy + 12, sdir));
 						mobjcount++;
 					}
-				} */
+				}
 				
 				for each (var moneybag:XML in xml.actors[0].moneybag)
 				{
-					add(new MoneyBag(moneybag.@x, moneybag.@y));
+					sx = moneybag.@x;
+					sy = moneybag.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new MoneyBag(sx, sy));
 					itemcount++;
 				}
 				
-				for each (var boss1peta:XML in xml.actors[0].boss1peta)
+				for each (var term:XML in xml.actors[0].pwallterm)
 				{
-					var endlevel:Boolean = false;
-					if (boss1peta.@endslevel == "true")
-						endlevel = true;
-					else
-						endlevel = false;
-					
-					add(new BossCookingMama(boss1peta.@x, boss1peta.@y, endlevel));
-					mobjcount++;
+					sx = term.@x;
+					sy = term.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new PWallTerminus(sx, sy));
 				}
 				
-				for each (var rocketammo:XML in xml.actors[0].rocketammo)
+				for each (var smac:XML in xml.actors[0].submachinegun)
 				{
-					add(new RocketAmmo(rocketammo.@x, rocketammo.@y));
+					sx = smac.@x;
+					sy = smac.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new MachineGun(sx, sy));
+				}
+				
+				for each (var bazooka:XML in xml.actors[0].bazooka)
+				{
+					sx = bazooka.@x;
+					sy = bazooka.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new Bazooka(sx, sy));
+				}
+				
+				for each (var heatzooka:XML in xml.actors[0].heatzooka)
+				{
+					sx = heatzooka.@x;
+					sy = heatzooka.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new HeatSeeker(sx, sy));
+				}
+				
+				for each (var dinnergun:XML in xml.actors[0].dinnergun)
+				{
+					sx = dinnergun.@x;
+					sy = dinnergun.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new DinnerLauncher(sx, sy));
+				}
+				
+				for each (var cboy:XML in xml.actors[0].choirboy)
+				{
+					sx = cboy.@x;
+					sy = cboy.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new ChoirBoy(sx, sy));
+				}
+				
+				for each (var isotrope:XML in xml.actors[0].isotrope)
+				{
+					sx = isotrope.@x;
+					sy = isotrope.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new Isotrope(sx, sy));
 				}
 				
 				for each (var healthkit:XML in xml.actors[0].healthkit)
 				{
-					add(new HealthKit(healthkit.@x, healthkit.@y));
+					sx = healthkit.@x;
+					sy = healthkit.@y;
+					
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					
+					add(new HealthKit(sx, sy));
 				}
 				
-				for each (var exitNormal:XML in xml.actors[0].exitNormal)
+				for each (var exit:XML in xml.actors[0].exittrigger)
 				{
-					add(new ExitNormal(exitNormal.@x, exitNormal.@y));
+					//if(exit.@issecret == "true")
+					//	add(new ExitSecret(sx, sy));
+					
+					sx = exit.@x;
+					sy = exit.@y;
+					
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					
+					add(new ExitNormal(sx, sy));
 				}
 				
 				for each (var pwallfx:XML in xml.actors[0].pwallfx)
 				{
-					add(new PWallTagObj(pwallfx.@x, pwallfx.@y, pwallfx.@tag, pwallfx.@dir));
+					sx = pwallfx.@x;
+					sy = pwallfx.@y;
+					
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					
+					add(new PWallTagObj(sx, sy, pwallfx.@tag, pwallfx.@dir));
 				}
 				
 				for each (var switchobj:XML in xml.actors[0].switchobj)
 				{
-					add(new TileSwitch(switchobj.@x, switchobj.@y, switchobj.@tag, switchobj.@tile));
+					sx = touchplate.@x;
+					sy = touchplate.@y;
+					
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					
+					add(new TileSwitch(sx, sy, switchobj.@tag, switchobj.@tile));
 				}
 				
 				for each (var touchplate:XML in xml.actors[0].touchplate)
 				{
-					add(new Touchplate(touchplate.@x, touchplate.@y, touchplate.@tag));
+					sx = touchplate.@x;
+					sy = touchplate.@y;
+					
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					
+					add(new Touchplate(sx, sy, touchplate.@tag));
 				}
 			}
 			
@@ -200,7 +374,7 @@ package worlds
 			{
 				default:
 				case 1:
-					return Assets.LEVEL01_MAP;
+					return Assets.E1A1_MAP;
 					break;
 				case 2:
 					return Assets.LEVEL02_MAP;
