@@ -11,7 +11,7 @@
 
 package entities.pickups 
 {
-	import entities.base.WeaponPickup;
+	import entities.base.HealthPickup;
 	import net.flashpunk.graphics.Image;
 	import flash.geom.Rectangle;
 	
@@ -19,14 +19,14 @@ package entities.pickups
 	 * ...
 	 * @author Kraig Culp
 	 */
-	public class Isotrope extends WeaponPickup 
+	public class PizzaSlice extends HealthPickup 
 	{
 		
-		public function Isotrope(_sx:int, _sy:int, _ammo:int=6) 
+		public function PizzaSlice(_sx:int, _sy:int, _ishot:Boolean=false) 
 		{
-			super(_sx, _sy, _ammo);
+			super(_sx, _sy, 20, _ishot);
 			
-			graphic = new Image(Assets.SPR_WEAPONS, new Rectangle(24, 48, 24, 24));
+			graphic = new Image(Assets.SPR_PICKUPS, new Rectangle(0, 0, 24, 24));
 		}
 		
 	}

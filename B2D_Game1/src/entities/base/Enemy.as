@@ -1,3 +1,14 @@
+/**
+ * Kraigose Studios/Kraigose Interactive License
+ * 
+ * This software is under an MIT-like license:
+ * 
+ * 1.) You may use the source code files for any purpose but you must credit Kraig Culp for the code with this header.
+ * 2.) This code comes without a warranty of any kind.
+ * 
+ * Written by Kraig "Kraigose" Culp 2011, 2012
+ */
+
 package entities.base 
 {
 	import entities.debug.RaycastShot;
@@ -11,20 +22,18 @@ package entities.base
 	import net.flashpunk.FP;
 	
 	/**
-	 * ...
+	 * Enemy KIActor.
 	 * @author Kraig Culp
 	 */
-	
-	// Enemy Class
-	// A base for enemies in Dominion Arcade. This includes some functions
-	// Used by the derived classes. It should not be used on it's own.
 	public class Enemy extends KIActor
 	{
+		// Static Constants for AI hitscan types.
 		public static const FOUND_NONE:int = 0;
 		public static const FOUND_WALL:int = 1;
 		public static const FOUND_PLAYER:int = 2;
 		public static const FOUND_ENEMY:int = 3;
 		
+		// Static Constants for AI
 		public static const REM_TIME_MAX:int = 300;			// A constant for how long it takes to remove an enemy.
 		public static const PAIN_TIME_MAX:int = 128;
 		
@@ -34,11 +43,18 @@ package entities.base
 		protected var paintime:int = 0;
 		protected var painTimeMax:int;
 		protected var pointsToPlayer:int;
-		protected var looktime:int;
+		protected var looktime:int;		
+		protected var chasetime:int;
 		protected var taunttime:int;
 		protected var deathtime:int;
 		
-		// Constructor.
+		/**
+		 * Spawn an Enemy.
+		 * @param	_sx x position in the world to spawn
+		 * @param	_sy y position in the world to spawn
+		 * @param	_w width of the enemy
+		 * @param	_h height of the enemy
+		 */
 		public function Enemy(_sx:int, _sy:int, _w:int=24, _h:int=24) 
 		{
 			super(_sx, _sy, _w, _h);
@@ -49,8 +65,15 @@ package entities.base
 			pointsToPlayer = 100;
 			
 			speed = 1;
+			
+			chasetime = taunttime = looktime = deathtime = 0;
 		}
 		
+		/**
+		 * Take health from a player's htiscan.
+		 * @param	_dam Damage to take.
+		 * @param	_e Entity who fired.
+		 */
 		public function takeHealthFromHitscan(_dam:int, _e:KIActor):void
 		{
 			if (state != KIActor.STATE_PAIN || state != KIActor.STATE_DEAD && health > 0)
@@ -74,6 +97,9 @@ package entities.base
 			}
 		}
 		
+		/**
+		 * Check if the Enemy collides with a Projectile fired by a non-player.
+		 */
 		public function checkPlayerProjectileCollide():void
 		{
 			var prj:Projectile = collide("playermissile", x, y) as Projectile;
@@ -95,7 +121,10 @@ package entities.base
 			}
 		}
 		
-		// return if the enemy is melee attacking or not.
+		/**
+		 * Check if the enemy is meleeing. Not used at the moment.
+		 * @return Enemy is in melee state.
+		 */
 		public function checkMeleeAttack():Boolean
 		{
 			if (state == KIActor.STATE_MELEE)
@@ -104,7 +133,10 @@ package entities.base
 				return false;
 		}
 				
-		// Check if the enemy is alive or dead
+		/**
+		 * Check if the enemy is alive.
+		 * @return If health is greater than 0.
+		 */
 		public function isAlive():Boolean
 		{
 			if (health > 0)
@@ -113,12 +145,20 @@ package entities.base
 				return false;
 		}
 		
-		// return enemy damage value
+		/**
+		 * Get the damage a melee or direct shot (hitscan) attack makes.
+		 * @return damage dealt.
+		 */
 		public function getDamage():int
 		{
 			return damage;
 		}
 		
+		/**
+		 * Function that tries to get an opposite direction.
+		 * @param	od direction
+		 * @return direction
+		 */
 		private function oppositeDir(od:int):int
 		{
 			var retdir:int = od;
@@ -129,6 +169,10 @@ package entities.base
 			return retdir;
 		}
 		
+		/**
+		 * Gets the current state of the enemy as a string for debugging.
+		 * @return state as a string.
+		 */
 		public function getState():String
 		{
 			var retstr:String = "";
@@ -147,11 +191,18 @@ package entities.base
 			return retstr;
 		}
 		
+		/**
+		 * Gets the direction as an int.
+		 * @return direction.
+		 */
 		public function getDir():int
 		{
 			return direction;
 		}
 		
+		/**
+		 * A_Chase AI routine.
+		 */
 		protected function A_Chase():void
 		{
 			var ctx:int = Math.ceil(x / 24);
@@ -160,6 +211,11 @@ package entities.base
 			AI_GoToNextTile(ctx, cty);
 		}
 		
+		/**
+		 * Private AI routine for going to the next available slot.
+		 * @param	tx TileX
+		 * @param	ty TileY
+		 */
 		private function AI_GoToNextTile(tx:int, ty:int):void
 		{
 			calcDirection();
@@ -192,6 +248,10 @@ package entities.base
 				return;
 		}
 		
+		/**
+		 * Checks if the Enemy can move in the current angle.
+		 * @return if successful.
+		 */
 		private function TryMoving():Boolean
 		{
 			var newX:int = Math.round(x + Math.cos(Angle.AU_DegreesToRadians(angle)) * speed);
@@ -212,6 +272,10 @@ package entities.base
 			return false;
 		}
 		
+		/**
+		 * A_Look routine.
+		 * @param	_dist Distance in tiles
+		 */
 		protected function A_Look(_dist:int = 4):void
 		{
 			var rs:int = Enemy.FOUND_NONE;
@@ -274,6 +338,12 @@ package entities.base
 			}
 		}
 		
+		/**
+		 * 
+		 * @param	tx
+		 * @param	ty
+		 * @return
+		 */
 		protected function checkIfEnemyCollide(tx:int, ty:int):Boolean
 		{
 			var e:Enemy = collide("enemy", tx * 24, ty * 24) as Enemy;
@@ -285,6 +355,12 @@ package entities.base
 				return false;
 		}
 		
+		/**
+		 * 
+		 * @param	tx
+		 * @param	ty
+		 * @return
+		 */
 		protected function checkIfPlayerCollide(tx:int, ty:int):Boolean
 		{
 			if (collide("player", tx * 24, ty * 24))
@@ -303,12 +379,12 @@ package entities.base
 		
 		protected function calcDirection():void
 		{
-			angle = Math.round(FP.angle(x, y, target.x, target.y));
-			angle = Angle.AU_CheckAngleRange(angle);
+			var tmpang:int = Math.round(FP.angle(x, y, target.x, target.y));
+			tmpang = Angle.AU_CheckAngleRange(tmpang);
 			
 			var i:int;
 			var counter:int = 0;
-			for (i = 0; i <= 360; i += 45)
+			for (i = 0; i <= 359; i += 45)
 			{
 				if (angle >= i && angle <= i + 45)
 				{
@@ -317,6 +393,15 @@ package entities.base
 						break;
 				}
 				counter++;
+			}
+			
+			if (tmpang >= angle)
+			{
+				angle += 2;
+			}
+			else if (tmpang < angle)
+			{
+				angle -= 2;
 			}
 		}
 		

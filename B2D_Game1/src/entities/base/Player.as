@@ -1,17 +1,15 @@
 package entities.base 
 {
-	import entities.special.*;
-	import entities.pickups.*;
 	import entities.missiles.*;
-	import flash.display.Sprite;
+	import entities.pickups.*;
+	import entities.special.*;
 	import flash.geom.Point;
-	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
-	import net.flashpunk.FP;
 	import util.Angle;
 	import worlds.TitleScreens;
 	
@@ -508,7 +506,10 @@ package entities.base
 							}
 							else if (rocketWeaponType == Player.RW_TYPE_ISOTROPE)
 							{
-								FP.world.add(new IsoShot(x, y, angle, this));
+								for (var j:int = 1; j <= 4; j++) 
+								{
+									FP.world.add(new IsoShot(x, y, angle - (j * 4), this));
+								}
 								rocketAmmo -= 1;
 								if (rocketAmmo <= 0)
 								{
@@ -535,6 +536,13 @@ package entities.base
 					for each(var tsw:TileSwitch in tswlist)
 					{
 						tsw.activate();
+					}
+					
+					var doorlist:Array = [];
+					FP.world.getClass(Door, doorlist);
+					for each(var dr:Door in doorlist)
+					{
+						dr.openDoor();
 					}
 				}
 			}
@@ -583,13 +591,10 @@ package entities.base
 				var ep:Projectile = collide("enemymissile", x, y) as Projectile
 				if (ep && !isHurt)
 				{
-					if (ep is Bullet)
-					{
-						health -= ep.getDamage();
-						isHurt = true;
-						Image(graphic).alpha = 0.5;
-						Image(graphic).color = 0xFF0000;
-					}
+					health -= ep.getDamage();
+					isHurt = true;
+					Image(graphic).alpha = 0.5;
+					Image(graphic).color = 0xFF0000;
 				}
 				
 				// Check if we "pick up" RocketAmmo
@@ -602,10 +607,11 @@ package entities.base
 					}
 				}
 				
-				var hp:HealthKit = collide("healthkit", x, y) as HealthKit;
+				var hp:HealthPickup = collide("healthitem", x, y) as HealthPickup;
 				if (hp)
 				{
-					if (addToHealth(15))
+					var healthtogive:int = hp.getHealAmount();
+					if (addToHealth(healthtogive))
 					{
 						FP.world.remove(hp);
 					}

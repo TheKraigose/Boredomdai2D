@@ -1,3 +1,14 @@
+/**
+ * Kraigose Studios/Kraigose Interactive License
+ * 
+ * This software is under an MIT-like license:
+ * 
+ * 1.) You may use the source code files for any purpose but you must credit Kraig Culp for the code with this header.
+ * 2.) This code comes without a warranty of any kind.
+ * 
+ * Written by Kraig "Kraigose" Culp 2011, 2012
+ */
+
 package entities.missiles 
 {
 	import entities.base.*;
@@ -46,7 +57,8 @@ package entities.missiles
 			graphic = sprFRocket;
 			
 			damage = 25;			// Does a ton more damage...
-			sfxShoot.play(0.35);	// Play sound effect.
+			if (Options.soundFxEnabled)
+				sfxShoot.play(Options.soundFxVolume * 0.35);	// Play sound effect.
 			removetime = 0;
 			
 			AI_SearchForTracableEnemy();
@@ -116,7 +128,8 @@ package entities.missiles
 				if (removetime == 0)
 				{
 					sfxShoot.stop();		// stop sound effect to prevent overlap
-					sfxExplode.play(0.35);	// Play explosion sound effect.
+					if (Options.soundFxEnabled)
+						sfxExplode.play(Options.soundFxVolume * 0.35);	// Play sound effect.
 				}
 				damage = 0;
 				removetime++;

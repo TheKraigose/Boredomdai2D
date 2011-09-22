@@ -185,6 +185,12 @@
 					<boolean name="issecret" default="false" />
 				</values>
 			</object>
+			<object name="doorobj" image="objset.png"  width="12" height="12" imageWidth="12" imageHeight="12" imageOffsetX="24" imageOffsetY="84">
+				<values>
+					<boolean name="locked" default="false" />
+					<boolean name="northsouth" default="false" />
+				</values>
+			</object>
 		</folder>
 	</objects>
 	

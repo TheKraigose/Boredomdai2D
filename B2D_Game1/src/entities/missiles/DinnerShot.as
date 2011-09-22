@@ -1,3 +1,14 @@
+/**
+ * Kraigose Studios/Kraigose Interactive License
+ * 
+ * This software is under an MIT-like license:
+ * 
+ * 1.) You may use the source code files for any purpose but you must credit Kraig Culp for the code with this header.
+ * 2.) This code comes without a warranty of any kind.
+ * 
+ * Written by Kraig "Kraigose" Culp 2011, 2012
+ */
+
 package entities.missiles 
 {
 	import entities.base.*;
@@ -29,8 +40,8 @@ package entities.missiles
 		// Sfx objects
 		private var sprExplosion:Image = new Image(Assets.SPR_FROCKET, new Rectangle(24, 0, 24, 24));
 			
-		private var sprFRocket:Image = new Image(Assets.SPR_FROCKET, new Rectangle(3, 7, 16, 9));
-		private var sfxShoot:Sfx = new Sfx(Assets.SFX_ROCKET);
+		private var sprFRocket:Image = new Image(Assets.SPR_DINNERSHOT);
+		private var sfxShoot:Sfx = new Sfx(Assets.SFX_DINNER_LAUNCHER);
 		private var sfxExplode:Sfx = new Sfx(Assets.SFX_EXPLODE);
 		private var removetime:int;
 		private var angletotravel:int;
@@ -48,7 +59,10 @@ package entities.missiles
 			graphic = sprFRocket;
 			
 			damage = 10;			// Does a ton more damage...
-			sfxShoot.play(0.1);	// Play sound effect.
+			
+			if (Options.soundFxEnabled)
+				sfxShoot.play(Options.soundFxVolume * 0.35);	// Play sound effect.
+			
 			removetime = 0;
 			timetillground = 0;
 		}
@@ -95,7 +109,8 @@ package entities.missiles
 				if (removetime == 0)
 				{
 					sfxShoot.stop();		// stop sound effect to prevent overlap
-					sfxExplode.play(0.1);	// Play explosion sound effect.
+					if (Options.soundFxEnabled)
+						sfxExplode.play(Options.soundFxVolume * 0.35);	// Play sound effect.
 				}
 				damage = 0;
 				removetime++;

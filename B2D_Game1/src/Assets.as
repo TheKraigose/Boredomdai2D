@@ -35,6 +35,14 @@ package
 		public static const SPR_MONEY:Class;
 		[Embed(source = 'assets/sprites/exitsteps.png')]
 		public static const SPR_EXIT:Class;
+		[Embed(source = 'assets/sprites/health_items.png')]
+		public static const SPR_PICKUPS:Class;
+		[Embed(source = 'assets/sprites/isoshot.png')]
+		public static const SPR_ISOSHOT:Class;
+		[Embed(source = 'assets/sprites/dinnershot.png')]
+		public static const SPR_DINNERSHOT:Class;
+		[Embed(source = 'assets/sprites/bflame_ball.png')]
+		public static const SPR_DARKFIRE_SHOT:Class;
 		
 		[Embed(source = 'assets/graphics/title.png')]
 		public static const GFX_TITLEPIC:Class;
@@ -77,6 +85,10 @@ package
 		public static const SFX_MONEY:Class;
 		[Embed(source = 'assets/sfx/feedme.mp3')]
 		public static const SFX_FEED_ME_NOW:Class;
+		[Embed(source = 'assets/sfx/door_open.mp3')]
+		public static const SFX_DOOR_OPEN:Class;
+		[Embed(source = 'assets/sfx/door_close.mp3')]
+		public static const SFX_DOOR_CLOSE:Class;
 		
 		[Embed(source = 'assets/sfx/girl_pain.mp3')]
 		public static const SFX_SANYA_PAIN:Class;
@@ -85,17 +97,30 @@ package
 		[Embed(source = 'assets/sfx/girl_taunt.mp3')]
 		public static const SFX_SANYA_TAUNT:Class;
 		
+		[Embed(source = 'assets/sfx/submac_shot.mp3')]
+		public static const SFX_MACHINEGUN_SHOT:Class;
+		[Embed(source = 'assets/sfx/bc_see.mp3')]
+		public static const SFX_BOBCUT_SEE:Class;
+		[Embed(source = 'assets/sfx/bc_pain.mp3')]
+		public static const SFX_BOBCUT_PAIN:Class;
+		[Embed(source = 'assets/sfx/bc_dead.mp3')]
+		public static const SFX_BOBCUT_DEAD:Class;
+		
+		[Embed(source = 'assets/sfx/hg_see.mp3')]
+		public static const SFX_HGUARD_SEE:Class;
+		[Embed(source = 'assets/sfx/hg_pain.mp3')]
+		public static const SFX_HGUARD_PAIN:Class;
+		[Embed(source = 'assets/sfx/hg_dead.mp3')]
+		public static const SFX_HGUARD_DEAD:Class;
+		
+		[Embed(source = 'assets/sfx/dinner.mp3')]
+		public static const SFX_DINNER_LAUNCHER:Class;
+		
+		[Embed(source = 'assets/sfx/isotrope.mp3')]
+		public static const SFX_ISOTROPE_FIRE:Class;
+		
 		[Embed(source = 'assets/sfx/smitheroons.mp3')]
 		public static const SFX_GIBBING:Class;
-		
-		[Embed(source = 'assets/sfx/cmama_dessert.mp3')]
-		public static const SFX_CMAMA_DESSERT:Class;
-		[Embed(source = 'assets/sfx/cmama_pain.mp3')]
-		public static const SFX_CMAMA_PAIN:Class;
-		[Embed(source = 'assets/sfx/cmama_tryagain.mp3')]
-		public static const SFX_CMAMA_TAUNT:Class;
-		[Embed(source = 'assets/sfx/cmama_better.mp3')]
-		public static const SFX_CMAMA_BETTER:Class;
 		
 		[Embed(source = 'assets/sfx/error/error_main.mp3')]
 		public static const SFX_ERROR_MAJOR:Class;

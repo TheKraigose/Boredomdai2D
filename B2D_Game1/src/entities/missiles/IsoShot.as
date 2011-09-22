@@ -19,8 +19,8 @@ package entities.missiles
 		private var fakeangle:int;
 		private var sprExplosion:Image = new Image(Assets.SPR_FROCKET, new Rectangle(24, 0, 24, 24));
 			
-		private var sprFRocket:Image = new Image(Assets.SPR_FROCKET, new Rectangle(3, 7, 16, 9));
-		private var sfxShoot:Sfx = new Sfx(Assets.SFX_ROCKET);
+		private var sprFRocket:Image = new Image(Assets.SPR_ISOSHOT);
+		private var sfxShoot:Sfx = new Sfx(Assets.SFX_ISOTROPE_FIRE);
 		private var sfxExplode:Sfx = new Sfx(Assets.SFX_EXPLODE);
 		private var removetime:int;
 		private var weavetime:int;
@@ -36,7 +36,8 @@ package entities.missiles
 			graphic = sprFRocket;
 			
 			damage = 20;			// Does a ton more damage...
-			sfxShoot.play(0.35);	// Play sound effect.
+			if (Options.soundFxEnabled)
+				sfxShoot.play(Options.soundFxVolume * 0.35);	// Play sound effect.
 			removetime = 0;
 			weavetime = 0;
 		}
@@ -70,10 +71,10 @@ package entities.missiles
 			
 			fakeangle = Angle.AU_CheckAngleRange(fakeangle + 45);
 			
-			if (weavetime >= 16)
+			if (weavetime >= 8)
 			{
 				weavetime = 0;
-				if (Math.random() * 2 == 1)
+				if (Math.random() * 2 > 1)
 					angle += Math.random() * 25;
 				else
 					angle -= Math.random() * 25;
@@ -87,7 +88,8 @@ package entities.missiles
 				if (removetime == 0)
 				{
 					sfxShoot.stop();		// stop sound effect to prevent overlap
-					sfxExplode.play(0.35);	// Play explosion sound effect.
+					if (Options.soundFxEnabled)
+						sfxExplode.play(Options.soundFxVolume * 0.35);	// Play sound effect.
 				}
 				damage = 0;
 				removetime++;

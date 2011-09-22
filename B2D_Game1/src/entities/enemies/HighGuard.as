@@ -1,3 +1,14 @@
+/**
+ * Kraigose Studios/Kraigose Interactive License
+ * 
+ * This software is under an MIT-like license:
+ * 
+ * 1.) You may use the source code files for any purpose but you must credit Kraig Culp for the code with this header.
+ * 2.) This code comes without a warranty of any kind.
+ * 
+ * Written by Kraig "Kraigose" Culp 2011, 2012
+ */
+
 package entities.enemies 
 {
 	import entities.*;
@@ -11,7 +22,7 @@ package entities.enemies
 	import net.flashpunk.utils.Draw;
 	
 	/**
-	 * ...
+	 * High Guard Enemy.
 	 * @author Kraig Culp
 	 */
 	public class HighGuard extends Enemy 
@@ -34,6 +45,10 @@ package entities.enemies
 			ssheet.add("fire", [1, 0], 15, false);
 			ssheet.add("pain", [2], 0, false);
 			ssheet.add("dead", [2, 3, 4, 5], 15, false);
+			
+			sfxSee = new Sfx(Assets.SFX_HGUARD_SEE);
+			sfxPain = new Sfx(Assets.SFX_HGUARD_PAIN);
+			sfxDead = new Sfx(Assets.SFX_HGUARD_DEAD);
 			
 			graphic = ssheet;
 			
@@ -90,6 +105,13 @@ package entities.enemies
 				}
 				if (state == KIActor.STATE_CHASING)
 				{
+					if (chasetime == 0)
+					{
+						A_StopAllSounds();
+						A_PlaySound(KIActor.CHAN_CHASE);
+						chasetime += 2;
+					}
+					
 					A_Chase();
 						
 					if (attacktime > 0)
@@ -103,7 +125,7 @@ package entities.enemies
 						state = KIActor.STATE_MISSILE;
 					}
 				}
-				if ((state == KIActor.STATE_MISSILE || state == KIActor.STATE_MISSILE) && distanceFrom(target) < 64 && distanceFrom(target) > 24)
+				if ((state == KIActor.STATE_MISSILE || state == KIActor.STATE_MISSILE) && distanceFrom(target) < 64 && distanceFrom(target) > 0)
 				{	
 					if (attacktime == 12 ||  attacktime == 24 || attacktime == 36  || attacktime == 48)
 						P_ShootHitScan(8, Math.random() * 5)
@@ -117,11 +139,17 @@ package entities.enemies
 					}
 					
 				}
+				else if ((state == KIActor.STATE_MISSILE || state == KIActor.STATE_MISSILE) && !(distanceFrom(target) < 64 && distanceFrom(target) > 0))
+				{
+					attacktime = 0;
+					state = KIActor.STATE_CHASING;
+				}
 				
 				if (state == KIActor.STATE_PAIN)
 				{
 					if (paintime == 0)
 					{
+						A_PlaySound(KIActor.CHAN_PAIN);
 						Spritemap(graphic).alpha = 0.5;
 						Spritemap(graphic).color = 0xFF0000;
 					}
@@ -142,6 +170,8 @@ package entities.enemies
 				{
 					if (removaltime == 0)
 					{
+						A_StopAllSounds();
+						A_PlaySound(KIActor.CHAN_DEAD);
 						addMonsterKill();
 					}
 					removaltime++;

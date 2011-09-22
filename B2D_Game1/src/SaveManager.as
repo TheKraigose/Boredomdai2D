@@ -1,16 +1,12 @@
 package  
 {
+	import entities.base.Player;
 	import entities.ui.MusicPlayer;
 	import flash.net.SharedObject;
 	import flash.utils.ByteArray;
-	import mx.core.ByteArrayAsset;
 	import net.flashpunk.FP;
-	import net.flashpunk.World;
-	import worlds.Game;
-	import entities.base.Player;
 	import util.Base64;
-	import worlds.ErrorScreen;
-	import worlds.TitleScreens;
+	import worlds.Game;
 	
 	/**
 	 * ...

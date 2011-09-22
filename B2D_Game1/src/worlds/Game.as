@@ -1,3 +1,14 @@
+/**
+ * Kraigose Studios/Kraigose Interactive License
+ * 
+ * This software is under an MIT-like license:
+ * 
+ * 1.) You may use the source code files for any purpose but you must credit Kraig Culp for the code with this header.
+ * 2.) This code comes without a warranty of any kind.
+ * 
+ * Written by Kraig "Kraigose" Culp 2011, 2012
+ */
+
 package worlds 
 {
 	import entities.ui.*;
@@ -300,15 +311,34 @@ package worlds
 					add(new Isotrope(sx, sy));
 				}
 				
-				for each (var healthkit:XML in xml.actors[0].healthkit)
+				for each (var fslice:XML in xml.actors[0].fslice)
 				{
-					sx = healthkit.@x;
-					sy = healthkit.@y;
-					
+					sx = fslice.@x;
+					sy = fslice.@y;
+
 					sx = ((sx / 12) * 24);
 					sy = ((sy / 12) * 24);
-					
-					add(new HealthKit(sx, sy));
+					add(new PizzaSlice(sx, sy, fslice.@ishot));
+				}
+				
+				for each (var poutine:XML in xml.actors[0].poutine)
+				{
+					sx = poutine.@x;
+					sy = poutine.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new Poutine(sx, sy, poutine.@ishot));
+				}
+				
+				for each (var door:XML in xml.actors[0].doorobj)
+				{
+					sx = door.@x;
+					sy = door.@y;
+
+					sx = ((sx / 12) * 24);
+					sy = ((sy / 12) * 24);
+					add(new Door(sx, sy, door.@northsouth));
 				}
 				
 				for each (var exit:XML in xml.actors[0].exittrigger)
