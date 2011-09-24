@@ -57,6 +57,23 @@ package
 		[Embed(source = 'assets/graphics/paused.png')]
 		public static const GFX_PAUSED:Class;
 		
+		[Embed(source = 'assets/graphics/hud/hudbar.png')]
+		public static const GFX_HUD_HUDBAR:Class;
+		[Embed(source = 'assets/graphics/hud/icon_bull.png')]
+		public static const GFX_HUD_BULLICON:Class;
+		[Embed(source = 'assets/graphics/hud/icon_turbo.png')]
+		public static const GFX_HUD_TURBOICON:Class;
+		[Embed(source = 'assets/graphics/hud/icon_hbar1.png')]
+		public static const GFX_HUD_HPICON_GREEN:Class;
+		[Embed(source = 'assets/graphics/hud/icon_rckt.png')]
+		public static const GFX_HUD_AMICON_ROCKET:Class;
+		[Embed(source = 'assets/graphics/hud/icon_heat.png')]
+		public static const GFX_HUD_AMICON_HEAT:Class;
+		[Embed(source = 'assets/graphics/hud/icon_dinr.png')]
+		public static const GFX_HUD_AMICON_DINNER:Class;
+		[Embed(source = 'assets/graphics/hud/icon_isot.png')]
+		public static const GFX_HUD_AMICON_ISOTROPE:Class;
+		
 		/* [Embed(source = 'assets/graphics/help.png')]
 		public static const GFX_HELP:Class; */
 		

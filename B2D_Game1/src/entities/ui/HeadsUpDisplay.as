@@ -22,7 +22,8 @@ package entities.ui
 		public function HeadsUpDisplay() 
 		{
 			txtHUD = new Text("Lives: ### Health: ### Score: ### Rockets: ##", 0, 0);	// Placeholder, is updated frequently.
-			txtHUD.size = 8;	// Make the text 8 instead of 12 point
+			txtHUD.size = 8;
+			txtHUD.scale = 2;	// Make the text 8 instead of 12 point
 			graphic = txtHUD;	// assign graphic to the txtHUD object
 		}
 		
@@ -36,15 +37,9 @@ package entities.ui
 			
 			var playerList:Array = [];
 			FP.world.getClass(Player, playerList);
-			var strAmmoMode:String;		// Placeholder String
-			// Determine what to display...
-			if (playerList[0].checkRocketMode())
-				strAmmoMode = "  Rockets: " + playerList[0].returnRockets().toString();	// If rocket mode checks out, display rocket information.
-			else
-				strAmmoMode = "  Bullets: Unl.";							// Else, just display "Bullets: Unl." (Unlimited)
 			
 			// Put the text strings all together.
-			txtHUD.text = "Lives: " + playerList[0].returnLives().toString() + "  Health: " + playerList[0].returnHealth().toString() + "  Score: " + playerList[0].returnScore().toString() + strAmmoMode;
+			txtHUD.text = "Lives: " + playerList[0].returnLives().toString() + " "  + "Score: " + playerList[0].returnScore().toString();
 		}
 		
 	}

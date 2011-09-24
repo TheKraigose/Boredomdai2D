@@ -39,7 +39,7 @@ package entities.enemies
 			sfxHScan = new Sfx(Assets.SFX_BULLET);
 			
 			ssheet.add("walk", [0], 0, false);
-			ssheet.add("fire", [1, 0], 15, false);
+			ssheet.add("fire", [0], 0, false);
 			ssheet.add("pain", [2], 0, false);
 			ssheet.add("dead", [2, 3, 4, 5], 15, false);
 			

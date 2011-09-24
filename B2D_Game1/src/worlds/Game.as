@@ -51,6 +51,8 @@ package worlds
 		public var interbg:IntermissionBackdrop;
 		public var inter:Intermission
 		public var hud:HeadsUpDisplay;
+		public var healthhud:HealthBarHUD;
+		public var ammohud:AmmoBarHUD;
 		public var lg:LevelGround;
 		public var levelNumber:int = 1;
 		public var gameState:int = 0;
@@ -69,6 +71,8 @@ package worlds
 			difficulty = diff;
 			player = new Player(0, 0, 0);
 			hud = new HeadsUpDisplay();
+			ammohud = new AmmoBarHUD();
+			healthhud = new HealthBarHUD();
 			interbg = new IntermissionBackdrop();
 			inter = new Intermission();
 			musBox = new MusicPlayer(levelNumber, gameState, true);
@@ -394,6 +398,8 @@ package worlds
 			inter.setSecretTotal(scrtcount);
 			
 			add(hud);
+			add(healthhud);
+			add(ammohud);
 			add(inter);
 			add(musBox);
 		}
@@ -438,9 +444,10 @@ package worlds
 		
 		public override function render():void
 		{
-			hud.x = FP.camera.x;
-			hud.y = FP.camera.y;
-				
+			
+			ammohud.x = healthhud.x = hud.x = FP.camera.x;
+			ammohud.y = healthhud.y = hud.y = FP.camera.y;
+			
 			super.render();
 		}
 		

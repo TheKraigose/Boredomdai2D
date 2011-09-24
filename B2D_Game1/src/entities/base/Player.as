@@ -192,6 +192,27 @@ package entities.base
 			return rocketAmmo;
 		}
 		
+		// Return current weapon type
+		public function returnAmmo():int
+		{
+			return rocketAmmo;
+		}
+		
+		// Check rocket type
+		public function returnRocketType():int
+		{
+			return rocketWeaponType;
+		}
+		
+		// Check submachine gun
+		public function returnHasSubmac():Boolean
+		{
+			if (hasSubmachineGun == 1)
+				return true;
+			else
+				return false;
+		}
+		
 		// This adds rockets. 50 rockets max
 		// at the moment.
 		public function addToRockets(amt:int):Boolean
